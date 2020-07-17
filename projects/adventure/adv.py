@@ -10,8 +10,8 @@ world = World()
 
 
 # You may uncomment the smaller graphs for development and testing purposes.
-map_file = "maps/test_line.txt"
-# map_file = "maps/test_cross.txt"
+# map_file = "maps/test_line.txt"
+map_file = "maps/test_cross.txt"
 # map_file = "maps/test_loop.txt"
 # map_file = "maps/test_loop_fork.txt"
 # map_file = "maps/main_maze.txt"
@@ -31,12 +31,69 @@ traversal_path = []
 visited = {}
 trav = []
 
-while len(trav) < len(room_graph):
-    for i in room_graph:
-        if player.current_room.get_room_in_direction('n') is not None:
-            traversal_path.append('n')
-            trav.append(i)
-    print(player.current_room.get_room_in_direction('n'))
+
+# def get_direction():
+#     if player.current_room.get_room_in_direction('n') is not None:
+#         traversal_path.append('n')
+#         player.travel('n')
+#         if player.current_room.id not in trav:
+#             trav.append(player.current_room.id)
+#     elif player.current_room.get_room_in_direction('e') is not None and i not in trav:
+#         traversal_path.append('e')
+#         player.travel('e')
+#         trav.append(i)
+#     elif player.current_room.get_room_in_direction('w') is not None and i not in trav:
+#         traversal_path.append('w')
+#         player.travel('w')
+#         trav.append(i)
+#     elif player.current_room.get_room_in_direction('s') is not None:
+#         traversal_path.append('s')
+#         player.travel('s')
+#         trav.append(player.current_room.id)
+
+def get_random():
+    rand = random.randint(0, 3)
+    if rand == 0:
+        return 'n'
+    elif rand == 1:
+        return 'e'
+    elif rand == 2:
+        return 's'
+    elif rand == 3:
+        return 'w'
+
+
+trav.append(player.current_room.id)
+
+
+def traverse():
+    # print(player.current_room.get_room_in_direction('n').get_coords())
+    while len(trav) < len(room_graph):
+        rand = get_random()
+        if player.current_room.get_room_in_direction(rand) is not None:
+            traversal_path.append(rand)
+            player.travel(rand)
+            if player.current_room.id not in trav:
+                trav.append(player.current_room.id)
+        traverse()
+        # elif player.current_room.get_room_in_direction('e') is not None and i not in trav:
+        #     traversal_path.append('e')
+        #     player.travel('e')
+        #     trav.append(i)
+        # elif player.current_room.get_room_in_direction('w') is not None and i not in trav:
+        #     traversal_path.append('w')
+        #     player.travel('w')
+        #     trav.append(i)
+        # elif player.current_room.get_room_in_direction('s') is not None:
+        #     traversal_path.append('s')
+        #     player.travel('s')
+        #     trav.append(player.current_room.id)
+        # else:
+        #     trav.append('No place left to go')
+        print("TRAV", trav)
+
+
+traverse()
 
 # TRAVERSAL TEST
 visited_rooms = set()
