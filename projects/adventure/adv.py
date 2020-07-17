@@ -13,8 +13,8 @@ world = World()
 # map_file = "maps/test_line.txt"
 # map_file = "maps/test_cross.txt"
 # map_file = "maps/test_loop.txt"
-map_file = "maps/test_loop_fork.txt"
-# map_file = "maps/main_maze.txt"
+# map_file = "maps/test_loop_fork.txt"
+map_file = "maps/main_maze.txt"
 
 # Loads the map into a dictionary
 room_graph=literal_eval(open(map_file, "r").read())
@@ -75,7 +75,7 @@ def traverse():
             player.travel(rand)
             if player.current_room.id not in trav:
                 trav.append(player.current_room.id)
-        traverse()
+        rand = get_random()
         # elif player.current_room.get_room_in_direction('e') is not None and i not in trav:
         #     traversal_path.append('e')
         #     player.travel('e')
